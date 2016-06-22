@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Response;
 class RoomTypeController extends Controller
 {
     public function index()
@@ -31,7 +32,13 @@ class RoomTypeController extends Controller
 
         if ($validator->fails()) {
 
-            return $validator->messages();
+            return Response::json(array(
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+
+            ), 400);
+
+//            return $validator->messages();
 
         }else{
             $room_type=new RoomType($request->all());

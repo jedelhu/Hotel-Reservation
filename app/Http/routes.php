@@ -14,14 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('payment', 'PaymentController');
 
 Route::group(['prefix' => 'api'], function() {
     Route::post('searchavailabity', 'RoomCalendarController@searchAvailability');
     Route::post('createreservation', 'ReservationController@createReservation');
     Route::get('reservation/{id}', 'ReservationController@show');
-    Route::post('payreservation', 'PaymentController@pay');
+
     Route::get('todayreservations', 'ReservationController@getTodayReservation');
     Route::post('checkout', 'ReservationController@getCheckout');
+
 
 
 });
@@ -31,6 +33,7 @@ Route::group(['prefix' => 'adminapi'], function()
     Route::resource('room_type', 'RoomTypeController');
     Route::post('setpriceinrange', 'RoomCalendarController@setPriceInRangeForRoomType');
     Route::get('customer', 'CustomerController@index');
-
-
+    Route::get('customer', 'CustomerController@index');
+    Route::post('order', 'OrderController@store');
+    Route::get('getorder', 'OrderController@index');
 });
